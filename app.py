@@ -2,7 +2,7 @@
 import streamlit as st
 import yfinance as yf
 import plotly.express as px
-import pandas as pd
+import pandas as pd  # Ensure pandas is imported
 
 # Mapping of company names to Yahoo Finance tickers
 stocks = {
@@ -37,20 +37,9 @@ data = yf.download(ticker, period=period, interval="1d")
 
 # Check if data is available
 if not data.empty:
-    # Find highest and lowest price
-    highest_price = data["High"].max()
-    lowest_price = data["Low"].min()
-
-    # Check if the highest and lowest prices are valid (not NaN)
-    if highest_price is not None and lowest_price is not None:
-        # Display highest & lowest prices
-        st.markdown(f"### 📊 Stock: {selected_stock} ({ticker})")
-        st.markdown(f"✅ **Highest Price:** €{highest_price:.2f}")
-        st.markdown(f"❌ **Lowest Price:** €{lowest_price:.2f}")
-
     # Plot stock price graph
     fig = px.line(data, x=data.index, y="Close", title=f"{selected_stock} Stock Price Over {selected_period}")
     st.plotly_chart(fig)
-
 else:
     st.warning("No data available for the selected options. Try a different selection.")
+
