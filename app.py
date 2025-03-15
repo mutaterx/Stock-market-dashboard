@@ -1,12 +1,7 @@
-# IMPORTING LIBRARIES
-
+# Import necessary libraries
 import streamlit as st
-import pandas as pd
-import yfinance as yf 
+import yfinance as yf
 import plotly.express as px
-
-# Define stock tickers for Thales, Safran, and Dassault Aviation (Yahoo Finance symbols)
-tickers = ["HO.PA", "SAF.PA", "AM.PA"]  # ".PA" means Paris Stock Exchange
 
 # Mapping of company names to Yahoo Finance tickers
 stocks = {
@@ -32,7 +27,7 @@ selected_stock = st.selectbox("Select a company:", list(stocks.keys()))
 # Dropdown list for selecting time period
 selected_period = st.selectbox("Select a time period:", list(period_options.keys()))
 
-# Get the ticker symbol
+# Get the ticker symbol and period code
 ticker = stocks[selected_stock]
 period = period_options[selected_period]
 
@@ -45,14 +40,10 @@ if not data.empty:
     highest_price = data["High"].max()
     lowest_price = data["Low"].min()
 
-    # Check if prices are valid (not None or NaN)
-    if highest_price is not None and lowest_price is not None:
-        # Display highest & lowest prices
-        st.markdown(f"### 📊 Stock: {selected_stock} ({ticker})")
-        st.markdown(f"✅ **Highest Price:** €{highest_price:.2f}")
-        st.markdown(f"❌ **Lowest Price:** €{lowest_price:.2f}")
-    else:
-        st.warning("Could not find valid highest or lowest price data.")
+    # Display highest & lowest prices
+    st.markdown(f"### 📊 Stock: {selected_stock} ({ticker})")
+    st.markdown(f"✅ **Highest Price:** €{highest_price:.2f}")
+    st.markdown(f"❌ **Lowest Price:** €{lowest_price:.2f}")
 
     # Plot stock price graph
     fig = px.line(data, x=data.index, y="Close", title=f"{selected_stock} Stock Price Over {selected_period}")
