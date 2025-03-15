@@ -20,9 +20,6 @@ df = pd.DataFrame(data)
 
 fig = go.Figure(data=[go.Candlestick(
         x=data.index,
-        open=data['Open'],
-        high=data['High'],
-        low=data['Low'],
         close=data['Close'],
         name=ticker
     )])
