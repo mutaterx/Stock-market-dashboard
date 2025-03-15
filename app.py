@@ -28,6 +28,6 @@ fig = go.Figure(data=[go.Candlestick(
     )])
     
 #fig = px.line(data, x=data.index, y="Close", title="Stock Prices")
-st.ploty_chart(fig)
+st.plotly_chart(fig)
 #(df, x = 'Date', y = 'Close'
 st.write(data)
