@@ -17,5 +17,7 @@ start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
 data = yf.download(ticker,start=start_date, end=end_date)
 df = pd.DataFrame(data)
-#px.line(df, x = 'Date', y = 'Close')
+
+st.plotychart(data)
+#(df, x = 'Date', y = 'Close'
 st.write(data)
