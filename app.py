@@ -40,10 +40,11 @@ if not data.empty:
     highest_price = data["High"].max()
     lowest_price = data["Low"].min()
 
-    # Display highest & lowest prices
-    st.markdown(f"### 📊 Stock: {selected_stock} ({ticker})")
-    st.markdown(f"✅ **Highest Price:** €{highest_price:.2f}")
-    st.markdown(f"❌ **Lowest Price:** €{lowest_price:.2f}")
+    if pd.notna(highest_price) and pd.notna(lowest_price):
+        # Display highest & lowest prices
+        st.markdown(f"### 📊 Stock: {selected_stock} ({ticker})")
+        st.markdown(f"✅ **Highest Price:** €{highest_price:.2f}")
+        st.markdown(f"❌ **Lowest Price:** €{lowest_price:.2f}")
 
     # Plot stock price graph
     fig = px.line(data, x=data.index, y="Close", title=f"{selected_stock} Stock Price Over {selected_period}")
