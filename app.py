@@ -41,7 +41,8 @@ if not data.empty:
     highest_price = data["High"].max()
     lowest_price = data["Low"].min()
 
-    if pd.notna(highest_price) and pd.notna(lowest_price):
+    # Check if the highest and lowest prices are valid (not NaN)
+    if highest_price is not None and lowest_price is not None:
         # Display highest & lowest prices
         st.markdown(f"### 📊 Stock: {selected_stock} ({ticker})")
         st.markdown(f"✅ **Highest Price:** €{highest_price:.2f}")
