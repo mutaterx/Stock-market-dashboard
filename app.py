@@ -3,7 +3,6 @@
 import streamlit as st
 import pandas as pd
 import yfinance as yf 
-from datetime import datetime, timedelta 
 import plotly.express as px
 
 # Define stock tickers for Thales, Safran, and Dassault Aviation (Yahoo Finance symbols)
@@ -27,9 +26,13 @@ period_options = {
 # Streamlit App Title
 st.title("📈 Stock Price Viewer")
 
-# Sidebar selections
-selected_stock = st.sidebar.selectbox("Select a company:", list(stocks.keys()))
-selected_period = st.sidebar.selectbox("Select a time period:", list(period_options.keys()))
+# Buttons for selecting company
+st.markdown("### Select a company:")
+selected_stock = st.radio("Choose a company", list(stocks.keys()))
+
+# Buttons for selecting time period
+st.markdown("### Select a time period:")
+selected_period = st.radio("Choose a period", list(period_options.keys()))
 
 # Get the ticker symbol
 ticker = stocks[selected_stock]
