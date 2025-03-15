@@ -5,6 +5,7 @@ import pandas as pd
 
 # Yahoo Finance
 import yfinance as yf
+pip install financedatabase
 import financedatabase as fd
 
 # Data viz
