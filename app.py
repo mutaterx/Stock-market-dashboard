@@ -7,7 +7,6 @@ import plotly.graph_objects as go
 import streamlit as st
 
 st.title('📈Stock Dashboard')
-st.write("Analyze stock market trends with real-time data visualization.")
 st.markdown("<p style='font-size:18px; color:gray;'>Analyze stock market trends with real-time data visualization.</p>", unsafe_allow_html=True)
 
 
