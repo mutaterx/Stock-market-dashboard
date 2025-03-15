@@ -67,5 +67,6 @@ else:
     st.write("Please enter a ticker symbol in the sidebar")
 
 
-st.tabs(["Description"]
+st.tabs(["Description"])
+
 
