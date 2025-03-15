@@ -15,7 +15,7 @@ st.title('Stock Dashboard')
 ticker = st.sidebar.text_input('Ticker')
 start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
-fig = px.line(data, x = data.index, y = data['Close'], title = ticker)
+
 data = yf.download(ticker,start=start_date, end=end_date)
 
 st.write(data)
