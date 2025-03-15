@@ -18,6 +18,7 @@ end_date = st.sidebar.date_input('End Date')
 data = yf.download(ticker,start=start_date, end=end_date)
 df = pd.DataFrame(data)
 
-st.plotychart(data)
+fig = px.line(data, x=data.index, y="Close", title="Stock Prices")
+st.plotychart(fig)
 #(df, x = 'Date', y = 'Close'
 st.write(data)
