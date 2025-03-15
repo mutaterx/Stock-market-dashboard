@@ -36,10 +36,9 @@ period = period_options[selected_period]
 data = yf.download(ticker, period=period, interval="1d")
 
 # Check if data is available
-if not data.empty:
+if not data.empty and 'Close' in data.columns:
     # Plot stock price graph
     fig = px.line(data, x=data.index, y="Close", title=f"{selected_stock} Stock Price Over {selected_period}")
     st.plotly_chart(fig)
 else:
-    st.warning("No data available for the selected options. Try a different selection.")
-
+    st.warning("No data available for the selected options or 'Close' column is missing.")
