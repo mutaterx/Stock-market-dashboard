@@ -26,13 +26,11 @@ period_options = {
 # Streamlit App Title
 st.title("📈 Stock Price Viewer")
 
-# Buttons for selecting company
-st.markdown("### Select a company:")
-selected_stock = st.radio("Choose a company", list(stocks.keys()))
+# Dropdown list for selecting company
+selected_stock = st.selectbox("Select a company:", list(stocks.keys()))
 
-# Buttons for selecting time period
-st.markdown("### Select a time period:")
-selected_period = st.radio("Choose a period", list(period_options.keys()))
+# Dropdown list for selecting time period
+selected_period = st.selectbox("Select a time period:", list(period_options.keys()))
 
 # Get the ticker symbol
 ticker = stocks[selected_stock]
@@ -47,8 +45,8 @@ if not data.empty:
     highest_price = data["High"].max()
     lowest_price = data["Low"].min()
 
-    # Ensure the prices are valid numbers before displaying
-    if pd.notna(highest_price) and pd.notna(lowest_price):
+    # Check if prices are valid (not None or NaN)
+    if highest_price is not None and lowest_price is not None:
         # Display highest & lowest prices
         st.markdown(f"### 📊 Stock: {selected_stock} ({ticker})")
         st.markdown(f"✅ **Highest Price:** €{highest_price:.2f}")
