@@ -2,6 +2,7 @@
 import streamlit as st
 import yfinance as yf
 import plotly.express as px
+import panda as pd
 
 # Mapping of company names to Yahoo Finance tickers
 stocks = {
