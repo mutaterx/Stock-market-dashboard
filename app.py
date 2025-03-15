@@ -1,92 +1,53 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": None,
-   "id": "06465f9c-4736-4931-acdd-9df5540c1829",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# IMPORTING LIBRARIES\n",
-    "\n",
-    "import streamlit as st\n",
-    "import pandas as pd\n",
-    "import yfinance as yf \n",
-    "from datetime import datetime, timedelta \n",
-    "import plotly.express as px\n",
-    "import plotly.graph_objects as go\n",
-    "\n",
-    "\n",
-    "# Define stock tickers for Thales, Safran, and Dassault Aviation (Yahoo Finance symbols)\n",
-    "tickers = [\"HO.PA\", \"SAF.PA\", \"AM.PA\"]  # \".PA\" means Paris Stock Exchange\n",
-    "\n",
-    "# Mapping of company names to Yahoo Finance tickers\n",
-    "stocks = {\n",
-    "    \"Thales S.A.\": \"HO.PA\",\n",
-    "    \"Safran\": \"SAF.PA\",\n",
-    "    \"Dassault Aviation\": \"AM.PA\"\n",
-    "}\n",
-    "\n",
-    "# Mapping of period options\n",
-    "period_options = {\n",
-    "    \"1 Week\": \"1wk\",\n",
-    "    \"1 Month\": \"1mo\",\n",
-    "    \"6 Months\": \"6mo\",\n",
-    "    \"1 Year\": \"1y\"\n",
-    "}\n",
-    "\n",
-    "# Streamlit App Title\n",
-    "st.title(\"📈 Stock Price Viewer\")\n",
-    "\n",
-    "# Sidebar selections\n",
-    "selected_stock = st.sidebar.selectbox(\"Select a company:\", list(stocks.keys()))\n",
-    "selected_period = st.sidebar.selectbox(\"Select a time period:\", list(period_options.keys()))\n",
-    "\n",
-    "# Get the ticker symbol\n",
-    "ticker = stocks[selected_stock]\n",
-    "period = period_options[selected_period]\n",
-    "\n",
-    "# Fetch stock data from Yahoo Finance\n",
-    "data = yf.download(ticker, period=period, interval=\"1d\")\n",
-    "\n",
-    "# Check if data is available\n",
-    "if not data.empty:\n",
-    "    # Find highest and lowest price\n",
-    "    highest_price = data[\"High\"].max()\n",
-    "    lowest_price = data[\"Low\"].min()\n",
-    "\n",
-    "    # Display highest & lowest prices\n",
-    "    st.markdown(f\"**📊 Stock: {selected_stock} ({ticker})**\")\n",
-    "    st.markdown(f\"✅ **Highest Price:** €{highest_price:.2f}\")\n",
-    "    st.markdown(f\"❌ **Lowest Price:** €{lowest_price:.2f}\")\n",
-    "\n",
-    "    # Plot stock price graph\n",
-    "    fig = px.line(data, x=data.index, y=\"Close\", title=f\"{selected_stock} Stock Price Over {selected_period}\")\n",
-    "    st.plotly_chart(fig)\n",
-    "else:\n",
-    "    st.warning(\"No data available for the selected options. Try a different selection.\")"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.12.4"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
+import streamlit as st
+import pandas as pd
+import yfinance as yf
+from datetime import datetime, timedelta
+import plotly.express as px
+import plotly.graph_objects as go 
+
+# Define stock tickers for Thales, Safran, and Dassault Aviation (Yahoo Finance symbols)
+tickers = ["HO.PA", "SAF.PA", "AM.PA"]  # ".PA" means Paris Stock Exchange
+
+# Mapping of company names to Yahoo Finance tickers
+stocks = {
+    "Thales S.A.": "HO.PA",
+    "Safran": "SAF.PA",
+    "Dassault Aviation": "AM.PA"
 }
+
+# Mapping of period options
+period_options = {
+    "1 Week": "1wk",
+    "1 Month": "1mo",
+    "6 Months": "6mo",
+    "1 Year": "1y"
+
+st.title("📈 Stock Price Viewer")
+ 
+# Sidebar selections
+selected_stock = st.sidebar.selectbox("Select a company:", list(stocks.keys()))
+selected_period = st.sidebar.selectbox("Select a time period:", list(period_options.keys()))
+
+# Get the ticker symbol
+ticker = stocks[selected_stock]
+period = period_options[selected_period]
+
+# Fetch stock data from Yahoo Finance
+data = yf.download(ticker, period=period, interval="1d")
+
+# Check if data is available
+if not data.empty:
+    # Find highest and lowest price
+    highest_price = data["High"].max()
+    lowest_price = data["Low"].min()
+
+    # Display highest & lowest prices
+    st.markdown(f"**📊 Stock: {selected_stock} ({ticker})**")
+    st.markdown(f"✅ **Highest Price:** €{highest_price:.2f}")
+    st.markdown(f"❌ **Lowest Price:** €{lowest_price:.2f}")
+
+    # Plot stock price graph
+    fig = px.line(data, x=data.index, y="Close", title=f"{selected_stock} Stock Price Over {selected_period}")
+    st.plotly_chart(fig)
+else:
+    st.warning("No data available for the selected options. Try a different selection.")
