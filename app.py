@@ -6,7 +6,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-st.title('Stock Dashboard')
+st.title('📈Stock Dashboard')
+st.write("Analyze stock market trends with real-time data visualization.")
+st.markdown("<p style='font-size:18px; color:gray;'>Analyze stock market trends with real-time data visualization.</p>", unsafe_allow_html=True)
+
+
 ticker = st.sidebar.text_input('Ticker', value="MSFT")
 start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
@@ -67,6 +71,5 @@ else:
     st.write("Please enter a ticker symbol in the sidebar")
 
 
-st.tabs(["Description"])
 
 
