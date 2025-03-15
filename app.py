@@ -17,5 +17,5 @@ start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
 
 data = yf.download(ticker,start=start_date, end=end_date)
-fig = px.line(data, x = data.indew, y = data['Adj Close'], title = ticker
+fig = px.line(data, x = data.indew, y = data['Adj Close'], title = ticker)
 st.write(data)
