@@ -15,7 +15,6 @@ st.title('Stock Dashboard')
 ticker = st.sidebar.text_input('Ticker')
 start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
-
 data = yf.download(ticker,start=start_date, end=end_date)
-
+st.plotly(data)
 st.write(data)
