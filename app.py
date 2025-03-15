@@ -7,7 +7,6 @@ import pandas as pd
 import yfinance as yf
 
 # Data viz
-import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
@@ -19,5 +18,4 @@ end_date = st.sidebar.date_input('End Date')
 data = yf.download(ticker,start=start_date, end=end_date)
 df = pd.DataFrame(data)
 
-st.plotly(data)
 st.write(data)
