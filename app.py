@@ -74,7 +74,7 @@ if tab == 'Stock Data & Graph':
         st.write(data)
     else:
         st.write("Please enter a ticker symbol in the sidebar")
-    elif tab == 'Big Company Tickers':
+elif tab == 'Big Company Tickers':
     
         # List of big company names and their ticker symbols
     big_companies = {
