@@ -19,9 +19,25 @@ ticker = st.sidebar.text_input('Ticker', value="")
 start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
 
+# Create side-by-side tabs using st.columns()
+col1, col2 = st.columns([1, 1])
 
-# Tab selection for the main content area
-tab = st.radio('Select a tab', ['Stock Data & Graph', 'Dictionary of Tickers'])
+with col1:
+    if st.button("Stock Data & Graph"):
+        active_tab = "Stock Data & Graph"
+    else:
+        active_tab = None
+
+with col2:
+    if st.button("Big Company Tickers"):
+        active_tab = "Big Company Tickers"
+    else:
+        active_tab = None
+
+if active_tab == "Stock Data & Graph":
+
+# Tab selection for the main content area (button tabs)
+#tab = st.radio('Select a tab', ['Stock Data & Graph', 'Dictionary of Tickers'])
 
 
 if tab == 'Stock Data & Graph':
@@ -74,8 +90,10 @@ if tab == 'Stock Data & Graph':
         st.write(data)
     else:
         st.write("Please enter a ticker symbol in the sidebar")
-elif tab == 'BDictionnary of company tickers':
-    
+
+# Old tab type
+#elif tab == 'Dictionnary of company tickers':
+elif active_tab == "Big Company Tickers":    
         # List of big company names and their ticker symbols
     big_companies = {
         'Apple': 'AAPL',
