@@ -64,36 +64,36 @@ if active_tab == "Stock Data & Graph":
                 except KeyError:
                     st.warning(f"Data for {tick} not available")
         
-        fig.update_layout(
-            title="Closing Prices",
-            xaxis_title="Date",
-            yaxis_title="Price",
-            legend_title="Tickers"
-        )
-    else:
-        # Single ticker - create a candlestick chart
-        fig = go.Figure(data=[go.Candlestick(
-            x=data.index,
-            open=data['Open'],
-            high=data['High'],
-            low=data['Low'],
-            close=data['Close'],
-            name=ticker
-        )])
+            fig.update_layout(
+                title="Closing Prices",
+                xaxis_title="Date",
+                yaxis_title="Price",
+                legend_title="Tickers"
+            )
+        else:
+            # Single ticker - create a candlestick chart
+            fig = go.Figure(data=[go.Candlestick(
+                x=data.index,
+                open=data['Open'],
+                high=data['High'],
+                low=data['Low'],
+                close=data['Close'],
+                name=ticker
+            )])
+            
+            fig.update_layout(
+                title=f"{ticker} Price",
+                xaxis_title="Date",
+                yaxis_title="Price"
+            )
         
-        fig.update_layout(
-            title=f"{ticker} Price",
-            xaxis_title="Date",
-            yaxis_title="Price"
-        )
-    
-    # Display the plotly figure
-    st.plotly_chart(fig)
-    
-    # Display the raw data
-    st.write(data)
-else:
-    st.write("Please enter a ticker symbol in the sidebar")
+        # Display the plotly figure
+        st.plotly_chart(fig)
+        
+        # Display the raw data
+        st.write(data)
+    else:
+        st.write("Please enter a ticker symbol in the sidebar")
 
 # Old tab type
 #elif tab == 'Dictionnary of company tickers':
