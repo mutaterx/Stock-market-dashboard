@@ -39,8 +39,8 @@ if active_tab == "Stock Data & Graph":
 # Tab selection for the main content area (button tabs)
 #tab = st.radio('Select a tab', ['Stock Data & Graph', 'Dictionary of Tickers'])
 
-
-if tab == 'Stock Data & Graph':
+#Old tab
+#if tab == 'Stock Data & Graph':
     if ticker:
         data = yf.download(ticker,start=start_date, end=end_date)
         
