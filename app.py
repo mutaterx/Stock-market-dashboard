@@ -22,6 +22,9 @@ end_date = st.sidebar.date_input('End Date')
 # Create side-by-side tabs using st.columns()
 col1, col2 = st.columns([1, 1])
 
+# Variable to track the active tab
+active_tab = None
+
 with col1:
     if st.button("Stock Data & Graph"):
         active_tab = "Stock Data & Graph"
@@ -34,67 +37,68 @@ with col2:
     else:
         active_tab = None
 
-if active_tab == "Stock Data & Graph":
 
 # Tab selection for the main content area (button tabs)
 #tab = st.radio('Select a tab', ['Stock Data & Graph', 'Dictionary of Tickers'])
 
 #Old tab
 #if tab == 'Stock Data & Graph':
+
+if active_tab == "Stock Data & Graph":
     if ticker:
         data = yf.download(ticker,start=start_date, end=end_date)
         
-        if ticker:
-            tickers = [t.strip() for t in ticker.replace(',', ' ').split()]
+        #if ticker:
+            #tickers = [t.strip() for t in ticker.replace(',', ' ').split()]
             
-            if isinstance(data.columns, pd.MultiIndex):
-                fig = go.Figure()
-                
-                for tick in tickers:
-                    try:
-                        fig.add_trace(go.Scatter(
-                            x=data.index,
-                            y=data[('Close', tick)],
-                            mode='lines',
-                            name=f"{tick} Close"))
-                    except KeyError:
-                        st.warning(f"Data for {tick} not available")
+        if isinstance(data.columns, pd.MultiIndex):
+            fig = go.Figure()
             
-            fig.update_layout(
-                title="Closing Prices",
-                xaxis_title="Date",
-                yaxis_title="Price",
-                legend_title="Tickers"
-            )
-        else:
-            # Single ticker - create a candlestick chart
-            fig = go.Figure(data=[go.Candlestick(
-                x=data.index,
-                open=data['Open'],
-                high=data['High'],
-                low=data['Low'],
-                close=data['Close'],
-                name=ticker
-            )])
-            
-            fig.update_layout(
-                title=f"{ticker} Price",
-                xaxis_title="Date",
-                yaxis_title="Price"
-            )
+            for tick in tickers:
+                try:
+                    fig.add_trace(go.Scatter(
+                        x=data.index,
+                        y=data[('Close', tick)],
+                        mode='lines',
+                        name=f"{tick} Close"))
+                except KeyError:
+                    st.warning(f"Data for {tick} not available")
         
-        # Display the plotly figure
-        st.plotly_chart(fig)
-        
-        # Display the raw data
-        st.write(data)
+        fig.update_layout(
+            title="Closing Prices",
+            xaxis_title="Date",
+            yaxis_title="Price",
+            legend_title="Tickers"
+        )
     else:
-        st.write("Please enter a ticker symbol in the sidebar")
+        # Single ticker - create a candlestick chart
+        fig = go.Figure(data=[go.Candlestick(
+            x=data.index,
+            open=data['Open'],
+            high=data['High'],
+            low=data['Low'],
+            close=data['Close'],
+            name=ticker
+        )])
+        
+        fig.update_layout(
+            title=f"{ticker} Price",
+            xaxis_title="Date",
+            yaxis_title="Price"
+        )
+    
+    # Display the plotly figure
+    st.plotly_chart(fig)
+    
+    # Display the raw data
+    st.write(data)
+else:
+    st.write("Please enter a ticker symbol in the sidebar")
 
 # Old tab type
 #elif tab == 'Dictionnary of company tickers':
 elif active_tab == "Big Company Tickers":    
-        # List of big company names and their ticker symbols
+    # List of big company names and their ticker symbols
     big_companies = {
         'Apple': 'AAPL',
         'Microsoft': 'MSFT',
@@ -107,14 +111,14 @@ elif active_tab == "Big Company Tickers":
         'Johnson & Johnson': 'JNJ',
         'Walmart': 'WMT'
     }
-
+    
     # Show a dictionary with company names and ticker symbols
     st.subheader('Big Companies tickers')
     st.write("Here are some big companies and their ticker symbols:")
-
+    
     # Display the list as a dictionary
     st.write(big_companies)
-
+    
     # Add a clickable link to bring people to a dictionary of tickers (external link)
     st.markdown("[Click here for a full dictionary of tickers](https://www.nasdaq.com/symbol/)")
 
