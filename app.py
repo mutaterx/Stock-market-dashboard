@@ -15,7 +15,6 @@ import streamlit as st
 st.title('📈Stock Dashboard')
 st.markdown("<p style='font-size:18px; color:gray;'>Analyze stock market trends with real-time data visualization.</p>", unsafe_allow_html=True)
 st.markdown("<p style='font-size:18px; color:gray;'>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</p>", unsafe_allow_html=True)
-st.markdown("<p style='font-size:18px; color:gray;'>Made by Marie-Elizabeth Robert</p>", unsafe_allow_html=True)
 
 # Add description in the sidebar above the ticker input
 st.sidebar.markdown("<p style='font-size:16px; color:gray;'>Enter the company symbol, start date, and end date to show data.</p>", unsafe_allow_html=True)
