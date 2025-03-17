@@ -21,7 +21,7 @@ end_date = st.sidebar.date_input('End Date')
 
 
 # Tab selection for the main content area
-tab = st.selectbox('Select a tab', ['Stock Data & Graph', 'Big Company Tickers'])
+tab = st.radio('Select a tab', ['Stock Data & Graph', 'Dictionary of Tickers'])
 
 
 if tab == 'Stock Data & Graph':
@@ -74,7 +74,7 @@ if tab == 'Stock Data & Graph':
         st.write(data)
     else:
         st.write("Please enter a ticker symbol in the sidebar")
-elif tab == 'Big Company Tickers':
+elif tab == 'BDictionnary of company tickers':
     
         # List of big company names and their ticker symbols
     big_companies = {
@@ -91,7 +91,7 @@ elif tab == 'Big Company Tickers':
     }
 
     # Show a dictionary with company names and ticker symbols
-    st.subheader('Big Companies and Tickers')
+    st.subheader('Big Companies tickers')
     st.write("Here are some big companies and their ticker symbols:")
 
     # Display the list as a dictionary
