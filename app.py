@@ -6,37 +6,44 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-import yfinance as yf
-import plotly.graph_objects as go
-import pandas as pd
-import streamlit as st
-
-# Title and description of the app
+# Using the function st.title for the title of the dashboard
 st.title('📈Stock Dashboard')
+
+# Using the function st.markdown to write the description of the dashboard
 st.markdown("<p style='font-size:18px; color:gray;'>Analyze stock market trends with real-time data visualization.</p>", unsafe_allow_html=True)
 st.markdown("<p style='font-size:18px; color:gray;'>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</p>", unsafe_allow_html=True)
 
-# Add description in the sidebar above the ticker input
+# Using st.markdown with .sidebar, in order to add a description in the sidebar 
 st.sidebar.markdown("<p style='font-size:16px; color:gray;'>Enter the company symbol, start date, and end date to show data.</p>", unsafe_allow_html=True)
 
-# Sidebar inputs
+# Now, in order to allows users to display data based on the companies they choose, I added a input section in the sidebar
+# Users must choose a ticker, a ticker refers to the code used to represent a publicly traded company on a stock exchange
+# For exemple Microsoft's ticker is MSFT
+# Using the st.sidebar.text_input function to display an input box for the tickers
+# The variable is 'Ticker' and the default value is empty (value=""), so in order to display data, users must enter a ticker 
+# Because the default value is empty, no data will be displayed until a ticker is chosen
 ticker = st.sidebar.text_input('Ticker', value="")
+
+# Using the dare_input function so users can choose the periode of data to be displayed
 start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
 
-# Tab selection for the main content area
+# In order to seperate the dashboard into two parts, I added a tab selection : one for the main content area and another for a dictionary of tickers
+# Using the selectbox() function in order to create a dropdown menu, users will then choose the content they wish to display
+# They will choose one of the strings : 'Stock Data & Graph', 'Big Company Tickers', the choosen string is then stored into the tab variable
 tab = st.selectbox('Select a tab', ['Stock Data & Graph', 'Big Company Tickers'])
 
+# If the tab variable has the value 'Stock Data & Graph' then view the code up until elif tab = 'Big Company Tickers'
 if tab == 'Stock Data & Graph':
-    # Ensure ticker is not empty before downloading data
+    # Before downloading the data from yahoo fiancne and displaying it, I will check that the ticker variable is not empty (this allows me to avoid downloading errors)
+    # To check if the ticker variable has a value, I'll use "if ticker: data = yh ...." this translates to : if the ticker variable has a value/is not empty, then download data 
     if ticker:
         data = yf.download(ticker, start=start_date, end=end_date)
 
-        # For multiple tickers, separate by space or comma
+        # For easier readability, I chose to separate the tickers by space or comma
         tickers = [t.strip() for t in ticker.replace(',', ' ').split()]
 
         if len(tickers) > 0:  # Check if there are valid tickers
-            # Download the data - this creates a MultiIndex DataFrame
             data = yf.download(tickers, start=start_date, end=end_date)
 
             # Check if we have a MultiIndex (multiple tickers) or single ticker
