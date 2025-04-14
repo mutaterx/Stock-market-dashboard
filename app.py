@@ -101,12 +101,12 @@ if tab == 'Stock Data & Graph':
             st.dataframe(data)
 
         else:
-            st.warning("Please enter a valid ticker symbol.") # If the ticker is not valid, then users wil recieve a message asking them to enter a valid ticker symbol
+            st.warning("Please enter a valid ticker symbol.") # If the ticker is not valid, then users will recieve a message asking them to enter a valid ticker symbol
     else:
         st.warning("Please enter a ticker symbol.")
 
 elif tab == 'Big Company Tickers':
-    # List of big company names and their ticker symbols so that users have access ithout having to search up the symbols
+    # List of big company names and their ticker symbols so that users have access without having to search up the symbols
     big_companies = {
         'Apple': 'AAPL',
         'Microsoft': 'MSFT',
