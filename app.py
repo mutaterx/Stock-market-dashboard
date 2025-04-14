@@ -16,33 +16,40 @@ st.markdown("<p style='font-size:18px; color:gray;'>https://www.linkedin.com/in/
 # Using st.markdown with .sidebar, in order to add a description in the sidebar 
 st.sidebar.markdown("<p style='font-size:16px; color:gray;'>Enter the company symbol, start date, and end date to show data.</p>", unsafe_allow_html=True)
 
-# Now, in order to allows users to display data based on the companies they choose, I added a input section in the sidebar
-# Users must choose a ticker, a ticker refers to the code used to represent a publicly traded company on a stock exchange
+# Now, in order to allows users to display data based on the companies they choose, I added an input section in the sidebar
+# Users must choose a ticker (a ticker refers to the code used to represent a publicly traded company on a stock exchange)
 # For exemple Microsoft's ticker is MSFT
 # Using the st.sidebar.text_input function to display an input box for the tickers
 # The variable is 'Ticker' and the default value is empty (value=""), so in order to display data, users must enter a ticker 
 # Because the default value is empty, no data will be displayed until a ticker is chosen
 ticker = st.sidebar.text_input('Ticker', value="")
 
-# Using the dare_input function so users can choose the periode of data to be displayed
+# Using the date_input function so users can choose the periode of data to be displayed
 start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
 
 # In order to seperate the dashboard into two parts, I added a tab selection : one for the main content area and another for a dictionary of tickers
-# Using the selectbox() function in order to create a dropdown menu, users will then choose the content they wish to display
-# They will choose one of the strings : 'Stock Data & Graph', 'Big Company Tickers', the choosen string is then stored into the tab variable
+# Using the selectbox() function in order to create a dropdown menu. 
+# Users will then choose the content they wish to display
+# They will choose one of the strings : 'Stock Data & Graph' or 'Big Company Tickers', the choosen string is then stored into the tab variable
 tab = st.selectbox('Select a tab', ['Stock Data & Graph', 'Big Company Tickers'])
 
 # If the tab variable has the value 'Stock Data & Graph' then view the code up until elif tab = 'Big Company Tickers'
 if tab == 'Stock Data & Graph':
-    # Before downloading the data from yahoo fiancne and displaying it, I will check that the ticker variable is not empty (this allows me to avoid downloading errors)
-    # To check if the ticker variable has a value, I'll use "if ticker: data = yh ...." this translates to : if the ticker variable has a value/is not empty, then download data 
+    # Before downloading the data from yahoo finance and displaying it, the code will check that the ticker variable is not empty (this avoids downloading errors)
+    # To check if the ticker variable has a value, I'll use "if ticker: data = yh ...." this translates to : if the ticker variable has a value/is not empty, then download data from yahoo finance
     if ticker:
         data = yf.download(ticker, start=start_date, end=end_date)
 
-        # For easier readability, I chose to separate the tickers by space or comma
+        # Creating the list tickers that stores all the ticker symboles entered by users
+        # In case users enter commas to seperate the tickers, the code will trasform the commas into spaces with ticker.replace(',',' ').
+        # It will look like this : INPUT --> AAPL, GOOG, MSFT     CODE --> ticker.replace(',', ' ')    OUTPUT-->  "AAPL  GOOG MSFT"
+        # Then the code will store the values into a list thanks to .split(), which looks like this : "AAPL  GOOG MSFT".split() -->  ["AAPL", "GOOG", "MSFT"]
+        # for t in ticker, is a loop, in the code below the code is looping over each symbol that was stored in the created list
+        # So it looks like this : for t in ["AAPL", "GOOG", "MSFT"]
         tickers = [t.strip() for t in ticker.replace(',', ' ').split()]
-
+        # len(tickers) checks the number of items in the list named tickers that holds the stock symbols
+        # if and > 0, allows the code to be run if there is at least 1 symbol in the list
         if len(tickers) > 0:  # Check if there are valid tickers
             data = yf.download(tickers, start=start_date, end=end_date)
 
@@ -94,7 +101,7 @@ if tab == 'Stock Data & Graph':
             st.dataframe(data)
 
         else:
-            st.warning("Please enter a valid ticker symbol.")
+            st.warning("Please enter a valid ticker symbol.") # If the ticker is not valid, then users wil recieve a message asking them to enter a valid ticker symbol
     else:
         st.warning("Please enter a ticker symbol.")
 
@@ -117,7 +124,7 @@ elif tab == 'Big Company Tickers':
     st.subheader('Big Companies and Tickers')
     st.write("Here are some big companies and their ticker symbols:")
 
-    # Display the list as a dictionary
+    # Display the list of tickers created in the code above
     st.write(big_companies)
 
     # Add a clickable link to bring people to a dictionary of tickers (external link)
