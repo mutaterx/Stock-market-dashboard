@@ -106,7 +106,7 @@ if tab == 'Stock Data & Graph':
         st.warning("Please enter a ticker symbol.")
 
 elif tab == 'Big Company Tickers':
-    # List of big company names and their ticker symbols
+    # List of big company names and their ticker symbols so that users have access ithout having to search up the symbols
     big_companies = {
         'Apple': 'AAPL',
         'Microsoft': 'MSFT',
@@ -120,12 +120,12 @@ elif tab == 'Big Company Tickers':
         'Walmart': 'WMT'
     }
 
-    # Show a dictionary with company names and ticker symbols
+    # Using st.subheader and st.srite to write the subtitle and description of the dictionary tab 
     st.subheader('Big Companies and Tickers')
     st.write("Here are some big companies and their ticker symbols:")
 
     # Display the list of tickers created in the code above
     st.write(big_companies)
 
-    # Add a clickable link to bring people to a dictionary of tickers (external link)
+    # Add a clickable link to bring users to a dictionary of tickers (external link)
     st.markdown("[Click here for a full dictionary of tickers](https://www.nasdaq.com/symbol/)")
