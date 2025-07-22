@@ -7,10 +7,10 @@ import plotly.graph_objects as go
 import streamlit as st
 
 # Using the function st.title for the title of the dashboard
-st.title('📈Stock Dashboard')
+st.title('Stock Market Dashboard')
 
 # Using the function st.markdown to write the description of the dashboard
-st.markdown("<p style='font-size:18px; color:gray;'>Analyze stock market trends with real-time data visualization.</p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:18px; color:gray;'>Analyze the stock market with real-time data visualization.</p>", unsafe_allow_html=True)
 st.markdown("<p style='font-size:18px; color:gray;'>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</p>", unsafe_allow_html=True)
 
 # Using st.markdown with .sidebar, in order to add a description in the sidebar 
@@ -104,6 +104,7 @@ if tab == 'Stock Data & Graph':
             st.warning("Please enter a valid ticker symbol.") # If the ticker is not valid, then users will recieve a message asking them to enter a valid ticker symbol
     else:
         st.warning("Please enter a ticker symbol.")
+st.markdown("<p style='font-size:10px; color:white;'>Data is provided by Yahoo Finance</p>", unsafe_allow_html=True)
 
 elif tab == 'Big Company Tickers':
     # List of big company names and their ticker symbols so that users have access without having to search up the symbols
