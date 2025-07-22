@@ -13,6 +13,11 @@ st.title('Stock Market Dashboard')
 st.markdown("<p style='font-size:18px; color:gray;'>Analyze the stock market with real-time data visualization.</p>", unsafe_allow_html=True)
 st.markdown("<p style='font-size:18px; color:gray;'>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</p>", unsafe_allow_html=True)
 
+st.markdown("<p style='font-size:18px; color:gray;'><em>Analyze the stock market with real-time data visualization.</em></p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:18px; color:gray;'><em>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</em></p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:10px; color:white;'><em>Data is provided by Yahoo Finance<em></p>", unsafe_allow_html=True)
+
+
 # Using st.markdown with .sidebar, in order to add a description in the sidebar 
 st.sidebar.markdown("<p style='font-size:16px; color:gray;'>Enter the company symbol, start date, and end date to show data.</p>", unsafe_allow_html=True)
 
@@ -129,6 +134,4 @@ elif tab == 'Big Company Tickers':
 
     # Add a clickable link to bring users to a dictionary of tickers (external link)
     st.markdown("[Click here for a full dictionary of tickers](https://www.nasdaq.com/symbol/)")
-
-st.markdown("<p style='font-size:10px; color:white;'>Data is provided by Yahoo Finance</p>", unsafe_allow_html=True)
 
