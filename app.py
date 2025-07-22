@@ -6,6 +6,17 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
+
+st.markdown("""
+    <style>
+    .block-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
 # Using the function st.title for the title of the dashboard
 st.title('Stock Market Dashboard')
 
@@ -13,7 +24,7 @@ st.title('Stock Market Dashboard')
 # Using em to write in italic
 st.markdown("<p style='font-size:15px; color:gray;'><em>Analyze the stock market with real-time data visualization.</em></p>", unsafe_allow_html=True)
 st.markdown("<p style='font-size:15px; color:gray;'><em>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</em></p>", unsafe_allow_html=True)
-st.markdown("<p style='font-size:15px; color:white;'><em>Data is provided by Yahoo Finance<em></p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:15px; color:white;'><em>Data is provided by Yahoo Finance</em></p>", unsafe_allow_html=True)
 
 
 # Using st.markdown with .sidebar, in order to add a description in the sidebar 
