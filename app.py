@@ -10,12 +10,10 @@ import streamlit as st
 st.title('Stock Market Dashboard')
 
 # Using the function st.markdown to write the description of the dashboard
-st.markdown("<p style='font-size:18px; color:gray;'>Analyze the stock market with real-time data visualization.</p>", unsafe_allow_html=True)
-st.markdown("<p style='font-size:18px; color:gray;'>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</p>", unsafe_allow_html=True)
-
-st.markdown("<p style='font-size:18px; color:gray;'><em>Analyze the stock market with real-time data visualization.</em></p>", unsafe_allow_html=True)
-st.markdown("<p style='font-size:18px; color:gray;'><em>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</em></p>", unsafe_allow_html=True)
-st.markdown("<p style='font-size:10px; color:white;'><em>Data is provided by Yahoo Finance<em></p>", unsafe_allow_html=True)
+# Using em to write in italic
+st.markdown("<p style='font-size:15px; color:gray;'><em>Analyze the stock market with real-time data visualization.</em></p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:15px; color:gray;'><em>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</em></p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:15px; color:white;'><em>Data is provided by Yahoo Finance<em></p>", unsafe_allow_html=True)
 
 
 # Using st.markdown with .sidebar, in order to add a description in the sidebar 
