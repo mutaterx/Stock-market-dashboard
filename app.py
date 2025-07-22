@@ -104,7 +104,6 @@ if tab == 'Stock Data & Graph':
             st.warning("Please enter a valid ticker symbol.") # If the ticker is not valid, then users will recieve a message asking them to enter a valid ticker symbol
     else:
         st.warning("Please enter a ticker symbol.")
-st.markdown("<p style='font-size:10px; color:white;'>Data is provided by Yahoo Finance</p>", unsafe_allow_html=True)
 
 elif tab == 'Big Company Tickers':
     # List of big company names and their ticker symbols so that users have access without having to search up the symbols
@@ -130,3 +129,6 @@ elif tab == 'Big Company Tickers':
 
     # Add a clickable link to bring users to a dictionary of tickers (external link)
     st.markdown("[Click here for a full dictionary of tickers](https://www.nasdaq.com/symbol/)")
+
+st.markdown("<p style='font-size:10px; color:white;'>Data is provided by Yahoo Finance</p>", unsafe_allow_html=True)
+
