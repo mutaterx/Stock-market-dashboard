@@ -10,7 +10,7 @@ import streamlit as st
 st.markdown("""
     <style>
     .block-container {
-        padding-left: 1rem;
+        padding-left: 0.2rem;
         padding-right: 1rem;
     }
     </style>
