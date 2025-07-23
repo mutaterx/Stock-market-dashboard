@@ -39,10 +39,9 @@ tab = st.selectbox('Select a tab', ['Stock Data & Graph', 'Big Company Tickers']
 
 # If the tab variable has the value 'Stock Data & Graph' then view the code up until elif tab = 'Big Company Tickers'
 if tab == 'Stock Data & Graph':
-    # Before downloading the data from yahoo finance and displaying it, the code will check that the ticker variable is not empty (this avoids downloading errors)
-    # To check if the ticker variable has a value, I'll use "if ticker: data = yh ...." this translates to : if the ticker variable has a value/is not empty, then download data from yahoo finance
     if ticker:
         data = yf.download(ticker, start=start_date, end=end_date)
+
         # Fetch and display company description
         info = yf.Ticker(ticker).info
         company_name = info.get("longName", "N/A")
@@ -50,84 +49,65 @@ if tab == 'Stock Data & Graph':
         industry = info.get("industry", "N/A")
         country = info.get("country", "N/A")
         exchange = info.get("exchange", "N/A")
-        
+
         st.markdown(f"""
-        <p style='font-size:16px; color:gray;'>
-        <strong>Company Name:</strong> {company_name}<br>
-        <strong>Sector:</strong> {sector}<br>
-        <strong>Industry:</strong> {industry}<br>
-        <strong>Country:</strong> {country}<br>
-        <strong>Exchange:</strong> {exchange}
-        </p>
-    """, unsafe_allow_html=True)
+            <p style='font-size:16px; color:gray;'>
+            <strong>Company Name:</strong> {company_name}<br>
+            <strong>Sector:</strong> {sector}<br>
+            <strong>Industry:</strong> {industry}<br>
+            <strong>Country:</strong> {country}<br>
+            <strong>Exchange:</strong> {exchange}
+            </p>
+        """, unsafe_allow_html=True)
 
         description = info.get("longBusinessSummary", "Description not available.")
         st.subheader("Company Overview")
         st.write(description)
 
-        # Creating the list tickers that stores all the ticker symboles entered by users
-        # In case users enter commas to seperate the tickers, the code will trasform the commas into spaces with ticker.replace(',',' ').
-        # It will look like this : INPUT --> AAPL, GOOG, MSFT     CODE --> ticker.replace(',', ' ')    OUTPUT-->  "AAPL  GOOG MSFT"
-        # Then the code will store the values into a list thanks to .split(), which looks like this : "AAPL  GOOG MSFT".split() -->  ["AAPL", "GOOG", "MSFT"]
-        # for t in ticker, is a loop, in the code below the code is looping over each symbol that was stored in the created list
-        # So it looks like this : for t in ["AAPL", "GOOG", "MSFT"]
-        tickers = [t.strip() for t in ticker.replace(',', ' ').split()]
-        # len(tickers) checks the number of items in the list named tickers that holds the stock symbols
-        # if and > 0, allows the code to be run if there is at least 1 symbol in the list
-        if len(tickers) > 0:  # Check if there are valid tickers
-            data = yf.download(tickers, start=start_date, end=end_date)
+        # Display charts and data
+        ticker_symbol = ticker.strip().upper()
+        data = yf.download(ticker_symbol, start=start_date, end=end_date)
 
-            # Check if we have a MultiIndex (multiple tickers) or single ticker
-            if isinstance(data.columns, pd.MultiIndex):
-                # Create a figure with traces for each ticker's closing price
-                fig = go.Figure()
+        if not data.empty:
+            # Closing price line chart
+            fig_close = go.Figure()
+            fig_close.add_trace(go.Scatter(
+                x=data.index,
+                y=data['Close'],
+                mode='lines',
+                name='Closing Price'
+            ))
+            fig_close.update_layout(
+                title=f"{ticker_symbol} - Closing Price",
+                xaxis_title="Date",
+                yaxis_title="Price"
+            )
+            st.plotly_chart(fig_close, use_container_width=True)
 
-                for tick in tickers:
-                    try:
-                        # Access data with MultiIndex
-                        fig.add_trace(go.Scatter(
-                            x=data.index,
-                            y=data[('Close', tick)],
-                            mode='lines',
-                            name=f"{tick} Close"
-                        ))
-                    except KeyError:
-                        st.warning(f"Data for {tick} not available")
+            # Candlestick chart
+            fig_candle = go.Figure(data=[go.Candlestick(
+                x=data.index,
+                open=data['Open'],
+                high=data['High'],
+                low=data['Low'],
+                close=data['Close'],
+                name='Candlestick'
+            )])
+            fig_candle.update_layout(
+                title=f"{ticker_symbol} - Candlestick Chart",
+                xaxis_title="Date",
+                yaxis_title="Price"
+            )
+            st.plotly_chart(fig_candle, use_container_width=True)
 
-                fig.update_layout(
-                    title="Closing Prices",
-                    xaxis_title="Date",
-                    yaxis_title="Price",
-                    legend_title="Tickers"
-                )
-            else:
-                # Single ticker - create a candlestick chart
-                fig = go.Figure(data=[go.Candlestick(
-                    x=data.index,
-                    open=data['Open'],
-                    high=data['High'],
-                    low=data['Low'],
-                    close=data['Close'],
-                    name=ticker
-                )])
-
-                fig.update_layout(
-                    title=f"{ticker} Price",
-                    xaxis_title="Date",
-                    yaxis_title="Price"
-                )
-
-            # Display the plotly figure
-            st.plotly_chart(fig)
-
-            # Display the dataframe
+            # Show data table
             st.subheader('Stock Data')
             st.dataframe(data)
-
         else:
-            st.warning("Please enter a valid ticker symbol.") # If the ticker is not valid, then users will recieve a message asking them to enter a valid ticker symbol
+            st.warning("No data found for the given ticker and date range.")
     else:
         st.warning("Please enter a ticker symbol.")
+
 
 elif tab == 'Big Company Tickers':
     # List of big company names and their ticker symbols so that users have access without having to search up the symbols
