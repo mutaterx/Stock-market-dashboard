@@ -56,6 +56,22 @@ if tab == 'Stock Data & Graph':
         data = yf.download(ticker, start=start_date, end=end_date)
         # Fetch and display company description
         info = yf.Ticker(ticker).info
+         company_name = info.get("longName", "N/A")
+        sector = info.get("sector", "N/A")
+        industry = info.get("industry", "N/A")
+        country = info.get("country", "N/A")
+        exchange = info.get("exchange", "N/A")
+        
+        st.markdown(f"""
+        <p style='font-size:16px; color:gray;'>
+        <strong>Company Name:</strong> {company_name}<br>
+        <strong>Sector:</strong> {sector}<br>
+        <strong>Industry:</strong> {industry}<br>
+        <strong>Country:</strong> {country}<br>
+        <strong>Exchange:</strong> {exchange}
+        </p>
+    """, unsafe_allow_html=True)
+
         description = info.get("longBusinessSummary", "Description not available.")
         st.subheader("Company Overview")
         st.write(description)
