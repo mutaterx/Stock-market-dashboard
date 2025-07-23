@@ -13,7 +13,7 @@ st.title('Stock Market Dashboard')
 # Using em to write in italic
 st.markdown("<p style='font-size:15px; color:gray;'><em>Analyze the stock market with real-time data visualization.</em></p>", unsafe_allow_html=True)
 st.markdown("<p style='font-size:15px; color:gray;'><em>https://www.linkedin.com/in/marie-elizabeth-robert-3181471a2/</em></p>", unsafe_allow_html=True)
-st.markdown("<p style='font-size:15px; color:white;'><em>Data is provided by Yahoo Finance</em></p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:15px; color:gray;'><em>Data is provided by Yahoo Finance</em></p>", unsafe_allow_html=True)
 
 # Using st.markdown with .sidebar, in order to add a description in the sidebar 
 st.sidebar.markdown("<p style='font-size:16px; color:gray;'>Enter the company symbol, start date, and end date to show data.</p>", unsafe_allow_html=True)
@@ -46,6 +46,29 @@ def get_company_info(ticker_symbol):
 if tab == 'Stock Data & Graph':
     # Before downloading the data from Yahoo Finance and displaying it, the code will check that the ticker variable is not empty (this avoids downloading errors)
     if ticker:
+         data = yf.download(ticker, start=start_date, end=end_date)
+        # Code to fetch and display company description and info from Yahoo Finance 
+        info = yf.Ticker(ticker).info
+        company_name = info.get("longName", "N/A")
+        sector = info.get("sector", "N/A")
+        industry = info.get("industry", "N/A")
+        country = info.get("country", "N/A")
+        exchange = info.get("exchange", "N/A")
+        
+        st.markdown(f"""
+        <p style='font-size:16px; color:gray;'>
+        <strong>Company Name:</strong> {company_name}<br>
+        <strong>Sector:</strong> {sector}<br>
+        <strong>Industry:</strong> {industry}<br>
+        <strong>Country:</strong> {country}<br>
+        <strong>Exchange:</strong> {exchange}
+        </p>
+    """, unsafe_allow_html=True)
+
+        description = info.get("longBusinessSummary", "Description not available.")
+        st.subheader("Company Overview")
+        st.write(description)
+
         # Creating the list 'tickers' that stores all the ticker symbols entered by users
         # In case users enter commas to separate the tickers, the code will transform the commas into spaces with ticker.replace(',', ' ')
         # Then the code will store the values into a list thanks to .split()
