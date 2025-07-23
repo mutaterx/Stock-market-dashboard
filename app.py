@@ -31,6 +31,21 @@ ticker = st.sidebar.text_input('Ticker', value="")
 start_date = st.sidebar.date_input('Start Date')
 end_date = st.sidebar.date_input('End Date')
 
+
+# With this code, the fetched downloaded data and company info will be cached.
+# Caching the data will speed up the app and reduce the number of requests (in order to avoid Yahoo finance API limit)
+# Without caching, every time a user interacts with the app (like changing a date or ticker), it fetches data from the internet again. That can be slow, especially if the data source (Yahoo Finance) takes time to respond.
+# With caching, once data is downloaded once, Streamlit stores it locally and reuses it instantly on subsequent requests with the same inputs.
+# Services like Yahoo finance have rate limits (they limit how many requests you can send in a short period). If a user requests the same data repeatedly without caching, they risk hitting those limits and getting blocked temporarily.
+
+@st.cache_data(show_spinner=False)
+def get_stock_data(ticker_symbol, start, end):
+    return yf.download(ticker_symbol, start=start, end=end)
+
+@st.cache_data(show_spinner=False)
+def get_company_info(ticker_symbol):
+    return yf.Ticker(ticker_symbol).info
+
 # In order to seperate the dashboard into two parts, I added a tab selection : one for the main content area and another for a dictionary of tickers
 # Using the selectbox() function in order to create a dropdown menu. 
 # Users will then choose the content they wish to display
