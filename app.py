@@ -6,17 +6,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-
-st.markdown("""
-    <style>
-    .block-container {
-        padding-left: 0.2rem;
-        padding-right: 1rem;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-
 # Using the function st.title for the title of the dashboard
 st.title('Stock Market Dashboard')
 
@@ -56,7 +45,7 @@ if tab == 'Stock Data & Graph':
         data = yf.download(ticker, start=start_date, end=end_date)
         # Fetch and display company description
         info = yf.Ticker(ticker).info
-         company_name = info.get("longName", "N/A")
+        company_name = info.get("longName", "N/A")
         sector = info.get("sector", "N/A")
         industry = info.get("industry", "N/A")
         country = info.get("country", "N/A")
