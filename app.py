@@ -54,6 +54,11 @@ if tab == 'Stock Data & Graph':
     # To check if the ticker variable has a value, I'll use "if ticker: data = yh ...." this translates to : if the ticker variable has a value/is not empty, then download data from yahoo finance
     if ticker:
         data = yf.download(ticker, start=start_date, end=end_date)
+        # Fetch and display company description
+        info = yf.Ticker(ticker).info
+        description = info.get("longBusinessSummary", "Description not available.")
+        st.subheader("Company Overview")
+        st.write(description)
 
         # Creating the list tickers that stores all the ticker symboles entered by users
         # In case users enter commas to seperate the tickers, the code will trasform the commas into spaces with ticker.replace(',',' ').
