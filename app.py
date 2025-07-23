@@ -46,7 +46,7 @@ def get_company_info(ticker_symbol):
 if tab == 'Stock Data & Graph':
     # Before downloading the data from Yahoo Finance and displaying it, the code will check that the ticker variable is not empty (this avoids downloading errors)
     if ticker:
-         data = yf.download(ticker, start=start_date, end=end_date)
+        data = yf.download(ticker, start=start_date, end=end_date)
         # Code to fetch and display company description and info from Yahoo Finance 
         info = yf.Ticker(ticker).info
         company_name = info.get("longName", "N/A")
